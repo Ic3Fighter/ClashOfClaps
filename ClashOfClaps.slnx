@@ -1,3 +1,11 @@
 <Solution>
-  <Project Path="ClashOfClaps.Presentation/ClashOfClaps.Presentation.csproj" />
+  <Folder Name="/1 - Presentation/">
+    <Project Path="ClashOfClaps.Presentation/ClashOfClaps.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/2 - Business/">
+    <Project Path="ClashOfClaps.Business/ClashOfClaps.Business.csproj" Id="e3ce23f1-83ad-48e0-ae21-78b7a7b385e4" />
+  </Folder>
+  <Folder Name="/3 - Data/">
+    <Project Path="ClashOfClaps.Data/ClashOfClaps.Data.csproj" Id="1d569331-8a27-4986-a26d-978cea0f579e" />
+  </Folder>
 </Solution>

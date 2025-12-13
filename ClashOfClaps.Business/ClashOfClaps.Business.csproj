@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClashOfClaps.Business\ClashOfClaps.Business.csproj" />
+    <ProjectReference Include="..\ClashOfClaps.Data\ClashOfClaps.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="BusinessProviders\" />
   </ItemGroup>
 
 </Project>

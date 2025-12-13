@@ -1,20 +1,20 @@
-﻿using ClashOfClaps.Presentation.Models;
+﻿using ClashOfClaps.Business.BusinessProviders;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClashOfClaps.Presentation.Controllers;
 
 public class ApiController : Controller
 {
+    private readonly CacheBusinessProvider _cacheBusinessProvider;
+
+    public ApiController(CacheBusinessProvider cacheBusinessProvider)
+    {
+        _cacheBusinessProvider = cacheBusinessProvider;
+    }
+
     public IActionResult Volume()
     {
-        var rnd = new Random();
-        var data = Enumerable.Range(0, 3)
-            .Select(i => new ApplauseVolume
-            {
-                TeamName = $"Team{i}",
-                Volume = rnd.NextDouble() * 100
-            })
-            .ToDictionary(x => x.TeamName, y => y);
-        return Json(data);
+        _cacheBusinessProvider.RandomizeVolumes();
+        return Json(_cacheBusinessProvider.GetVolumes());
     }
 }
