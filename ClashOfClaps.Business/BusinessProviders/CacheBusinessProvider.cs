@@ -20,8 +20,6 @@ public class CacheBusinessProvider
         return value;
     }
 
-    public Dictionary<string, ApplauseVolume> GetVolumes() => _cacheDataProvider.Volumes;
-
     public void RandomizeVolumes()
     {
         var rnd = new Random();
@@ -31,4 +29,8 @@ public class CacheBusinessProvider
 
         _cacheDataProvider.Volumes = volumes;
     }
+
+    public Dictionary<string, ApplauseVolume> GetVolumes() => _cacheDataProvider.Volumes;
+
+    public Dictionary<string, int> GetPoints() => _cacheDataProvider.Points;
 }

@@ -6,15 +6,21 @@ public class CacheDataProvider
 {
     public Dictionary<string, ApplauseVolume> Volumes { get; set; }
 
+    public Dictionary<string, int> Points { get; set; }
+
     public CacheDataProvider()
     {
         var rnd = new Random();
-        Volumes ??= Enumerable.Range(0, 3)
-            .Select(i => new ApplauseVolume
+        var teams = Enumerable.Range(0, 3).Select(i => $"Team{i}").ToArray();
+        
+        Volumes = teams
+            .Select(x => new ApplauseVolume
             {
-                TeamName = $"Team{i}",
+                TeamName = x,
                 Volume = rnd.NextDouble() * 100
             })
             .ToDictionary(x => x.TeamName, y => y);
+
+        Points = teams.ToDictionary(x => x, _ => 0);
     }
 }

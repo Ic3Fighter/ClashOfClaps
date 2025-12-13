@@ -1,43 +1,51 @@
-html {
-  font-size: 14px;
-}
+:root {
+    --green: #35ae65;
+    --lilac: #eed6e8;
+    --red: #e20000;
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    --bg: var(--lilac);
 }
 
 body {
-  margin-bottom: 60px;
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    background-color: var(--bg);
+    position: relative;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-
-.team-red {
-    background-color: #e20000;
+.nav-item:hover {
+    background-color: #eee;
 }
 
 .team-green {
-    background-color: #35ae65;
+    background-color: var(--green);
 }
 
 .team-lilac {
-    background-color: #eed6e8;
+    background-color: var(--lilac);
+}
+
+.team-red {
+    background-color: var(--red);
+}
+
+.col-centered {
+    display: flex;
+    gap: 3rem;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.points {
+    font-size: 3rem;
+    font-family: Arial, sans-serif;
 }

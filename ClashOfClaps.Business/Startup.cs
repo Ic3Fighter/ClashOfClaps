@@ -8,5 +8,6 @@ public static class Startup
     public static void AddBusiness(this IServiceCollection services)
     {
         services.AddScoped<CacheBusinessProvider>();
+        services.AddScoped<PointsBusinessProvider>();
     }
 }
