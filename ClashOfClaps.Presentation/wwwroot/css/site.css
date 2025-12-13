@@ -1,8 +1,4 @@
 :root {
-    --green: #35ae65;
-    --lilac: #eed6e8;
-    --red: #e20000;
-
     --bg: #e0e0e0;
 }
 
@@ -25,18 +21,6 @@ header {
     background-color: #eee;
 }
 
-.team-green {
-    background-color: var(--green);
-}
-
-.team-lilac {
-    background-color: var(--lilac);
-}
-
-.team-red {
-    background-color: var(--red);
-}
-
 .col-centered {
     display: flex;
     gap: 3rem;
@@ -48,4 +32,13 @@ header {
 .points {
     font-size: 3rem;
     font-family: Arial, sans-serif;
+}
+
+.grid-columns {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+}
+
+.team-color {
+    background-color: var(--team-color);
 }

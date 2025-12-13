@@ -15,7 +15,7 @@ public class PointsBusinessProvider
     {
         if (!_cacheDataProvider.Points.ContainsKey(key)) return false;
 
-        _cacheDataProvider.Points[key] = points;
+        _cacheDataProvider.Points[key] = Math.Max(points, 0);
         return true;
     }
 
@@ -23,7 +23,7 @@ public class PointsBusinessProvider
     {
         if (!_cacheDataProvider.Points.TryGetValue(key, out var value)) return false;
 
-        _cacheDataProvider.Points[key] = value + delta;
+        _cacheDataProvider.Points[key] = Math.Max(value + delta, 0);
         return true;
     }
 }
