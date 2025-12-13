@@ -1,0 +1,11 @@
+﻿@model ClashOfClaps.Data.Models.TeamSettings
+
+<div class="col col-centered">
+    <div class="headline-group">
+        <h1>@Model.Name</h1>
+        <div class="progress" role="progressbar">
+            <div class="progress-bar" data-team="@Model.Id" style="width: 0%; background-color: @Model.Color;"></div>
+        </div>
+    </div>
+    <img class="w-100" src="~/img/@Model.Image" alt="@Model.Name image" />
+</div>

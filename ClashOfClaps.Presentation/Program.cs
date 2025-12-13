@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // project layers
-builder.Services.AddData();
+builder.Services.AddData(builder.Configuration);
 builder.Services.AddBusiness();
 
 var app = builder.Build();
