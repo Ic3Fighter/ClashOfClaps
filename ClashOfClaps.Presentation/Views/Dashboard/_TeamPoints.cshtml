@@ -1,9 +1,9 @@
-﻿@model ClashOfClaps.Data.Models.TeamSettings
+﻿@model TeamViewModel
 
 <div class="col col-centered">
     <div class="headline-group">
         <h1>@Model.Name</h1>
-        <h2 class="points" data-team="@Model.Id" class="team-points">@Model.StartingPoints</h2>
+        <h2 class="points" data-team="@Model.Id" class="team-points">@Model.Points</h2>
     </div>
     <img class="w-100" src="~/img/@Model.Image" alt="@Model.Name image" />
 </div>
