@@ -1,31 +1,45 @@
-﻿using System.Numerics;
-using ClashOfClaps.Data.DataProviders;
+﻿using ClashOfClaps.Data.DataProviders;
+using ClashOfClaps.Data.Options;
+using Microsoft.Extensions.Options;
 
 namespace ClashOfClaps.Business.BusinessProviders;
 
 public class CacheBusinessProvider
 {
+    private readonly int _lowBoundary;
+    private readonly int _highBoundary;
+
     private readonly CacheDataProvider _cacheDataProvider;
+    private readonly AudioMeterDataProvider _audioMeterDataProvider;
 
-    public CacheBusinessProvider(CacheDataProvider cacheDataProvider)
+    public CacheBusinessProvider(IOptions<ApplicationOptions> options,
+        CacheDataProvider cacheDataProvider,
+        AudioMeterDataProvider audioMeterDataProvider)
     {
+        _lowBoundary = options.Value.Boundaries.Low;
+        _highBoundary = options.Value.Boundaries.High;
+
+        if (_lowBoundary > 0 || _highBoundary > 0 || _lowBoundary > _highBoundary)
+            throw new ArgumentException("Chosen boundaries for volume percentage conversion are invalid!");
+
         _cacheDataProvider = cacheDataProvider;
+        _audioMeterDataProvider = audioMeterDataProvider;
     }
 
-    private static T Clamp<T>(T value, T low, T high) where T : INumber<T>
-    {
-        if (value < low) return low;
-        if (value > high) return high;
-        return value;
-    }
+    private double ToPercentage(double value) =>
+        value < _lowBoundary
+            ? 0
+            : value > _highBoundary
+                ? 1
+                : Math.Abs((value - _lowBoundary) / (_lowBoundary - _highBoundary));
 
     public void RandomizeVolumes()
     {
-        var rnd = new Random();
         var volumes = _cacheDataProvider.Volumes;
+
         foreach (var applauseVolume in volumes)
             volumes[applauseVolume.Key] =
-                Clamp(applauseVolume.Value + 2 * Math.Pow(rnd.NextDouble() - .5, 3) * 100, 0, 100);
+                ToPercentage(_audioMeterDataProvider.RmsDbFs);
 
         _cacheDataProvider.Volumes = volumes;
     }

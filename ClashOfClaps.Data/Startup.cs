@@ -11,6 +11,7 @@ public static class Startup
     {
         // add data providers
         services.AddSingleton<CacheDataProvider>();
+        services.AddSingleton<AudioMeterDataProvider>();
 
         // configure application options
         services.Configure<ApplicationOptions>(configuration.GetSection("Options"));

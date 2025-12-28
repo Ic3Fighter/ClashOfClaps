@@ -4,7 +4,7 @@
 
     document.querySelectorAll(".progress-bar").forEach(element => {
         try {
-            element.style.width = `${data[element.dataset.team]}%`;
+            element.style.width = `${data[element.dataset.team] * 100}%`;
         } catch (error) {
             console.error(error);
             element.style.width = "0%";
