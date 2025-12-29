@@ -21,7 +21,7 @@ public class ApiController : ControllerBase
     [Route("volumes")]
     public IActionResult Volumes()
     {
-        _cacheBusinessProvider.RandomizeVolumes();
+        _cacheBusinessProvider.MeasureVolumes();
         return Ok(_cacheBusinessProvider.GetVolumes());
     }
 
