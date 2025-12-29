@@ -15,3 +15,9 @@ async function resetPoints(team) {
         method: "PUT"
     });
 }
+
+async function resetVolumes() {
+    await fetch(`/api/volumes`, {
+        method: "PUT"
+    });
+}

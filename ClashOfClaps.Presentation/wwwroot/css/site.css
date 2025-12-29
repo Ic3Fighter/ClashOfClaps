@@ -34,11 +34,6 @@ header {
     font-family: Arial, sans-serif;
 }
 
-.grid-columns {
-    display: grid;
-    grid-template-columns: repeat(var(--columns), 1fr);
-}
-
 .team-color {
     background-color: var(--team-color);
 }

@@ -69,4 +69,9 @@ public class CacheBusinessProvider
     /// Get dictionary with each team's id as key and points as value
     /// </summary>
     public Dictionary<string, int> GetPoints() => _cacheDataProvider.Points;
+
+    /// <summary>
+    /// Reset volume measurements
+    /// </summary>
+    public void ResetVolumes() => _cacheDataProvider.ResetVolumes();
 }

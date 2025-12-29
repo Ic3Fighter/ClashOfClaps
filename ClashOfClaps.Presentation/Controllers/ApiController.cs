@@ -25,6 +25,14 @@ public class ApiController : ControllerBase
         return Ok(_cacheBusinessProvider.GetVolumes());
     }
 
+    [HttpPut]
+    [Route("volumes")]
+    public IActionResult ResetVolumes()
+    {
+        _cacheBusinessProvider.ResetVolumes();
+        return Ok();
+    }
+
     [HttpGet]
     [Route("points")]
     public IActionResult Points() => Ok(_cacheBusinessProvider.GetPoints());

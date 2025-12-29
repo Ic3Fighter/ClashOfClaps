@@ -33,4 +33,9 @@ public class CacheDataProvider
     {
         RecentVolumes = new LimitedQueue<double>(_options.RecentVolumeMeasurements),
     });
+
+    /// <summary>
+    /// Reset volume measurements
+    /// </summary>
+    public void ResetVolumes() => InitVolumes();
 }
