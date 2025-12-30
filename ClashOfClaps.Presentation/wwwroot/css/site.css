@@ -46,3 +46,7 @@ header {
     .team-col.active {
         opacity: 1;
     }
+
+    .team-col[disabled] {
+        opacity: 0;
+    }

@@ -15,4 +15,6 @@ public class TeamViewModel
     public string Color { get; set; }
 
     public bool IsActive { get; set; }
+
+    public bool IsSelected { get; set; }
 }

@@ -1,13 +1,11 @@
 ﻿async function queryVolumes() {
     const response = await fetch("/api/volumes");
     const data = await response.json();
-    console.log(data["green"])
 
     document.querySelectorAll(".progress-bar").forEach(element => {
         try {
             let team = data[element.dataset.team];
             element.style.width = `${team.volume * 100}%`;
-            console.log(team.isActive)
 
             let col = element.closest(".team-col");
             if (team.isActive) col.classList.add("active");
@@ -19,4 +17,4 @@
     })
 };
 
-document.addEventListener("DOMContentLoaded", setInterval(queryVolumes, 600));
+document.addEventListener("DOMContentLoaded", setInterval(queryVolumes, 200));

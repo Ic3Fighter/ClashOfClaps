@@ -22,12 +22,9 @@ public class DashboardController : Controller
     public IActionResult Volumes(bool showMenu = true, params string[] team)
     {
         ViewData["menu"] = showMenu;
-        var teams = team.Length < 1
-            ? _options.Teams
-            : _options.Teams.Where(x => team.Contains(x.Id));
         var volumes = _cacheBusinessProvider.GetVolumes();
 
-        var model = teams.Select(x => new TeamViewModel
+        var model = _options.Teams.Select(x => new TeamViewModel
         {
             Id = x.Id,
             Name = x.Name,
@@ -35,6 +32,7 @@ public class DashboardController : Controller
             Color = x.Color,
             Volume = volumes.GetValueOrDefault(x.Id, 0),
             IsActive = _cacheBusinessProvider.IsActive(x.Id),
+            IsSelected = team.Length < 1 || team.Contains(x.Id),
         }).ToList();
         return View(model);
     }
