@@ -21,3 +21,9 @@ async function resetVolumes() {
         method: "PUT"
     });
 }
+
+async function setActive(team) {
+    await fetch(`/api/team/${team}/active`, {
+        method: "POST"
+    });
+}

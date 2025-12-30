@@ -17,12 +17,19 @@ public class ApiController : ControllerBase
         _pointsBusinessProvider = pointsBusinessProvider;
     }
 
+    #region Volumes
+
     [HttpGet]
     [Route("volumes")]
     public IActionResult Volumes()
     {
         _cacheBusinessProvider.MeasureVolumes();
-        return Ok(_cacheBusinessProvider.GetVolumes());
+        return Ok(_cacheBusinessProvider.GetVolumes().ToDictionary(x => x.Key, 
+            y => new
+            {
+                Volume = y.Value, 
+                IsActive = _cacheBusinessProvider.IsActive(y.Key)
+            }));
     }
 
     [HttpPut]
@@ -32,6 +39,10 @@ public class ApiController : ControllerBase
         _cacheBusinessProvider.ResetVolumes();
         return Ok();
     }
+
+    #endregion
+
+    #region Points
 
     [HttpGet]
     [Route("points")]
@@ -60,4 +71,18 @@ public class ApiController : ControllerBase
         if (_pointsBusinessProvider.Change(team, -1 * points)) return Ok();
         return BadRequest();
     }
+
+    #endregion
+
+    #region Team
+
+    [HttpPost]
+    [Route("team/{team}/active/{isActive?}")]
+    public IActionResult SetActive(string team, bool? isActive)
+    {
+        _cacheBusinessProvider.SetActive(team, isActive ?? true);
+        return Ok();
+    }
+
+    #endregion
 }

@@ -13,4 +13,6 @@ public class TeamViewModel
     public double Volume { get; set; }
 
     public string Color { get; set; }
+
+    public bool IsActive { get; set; }
 }

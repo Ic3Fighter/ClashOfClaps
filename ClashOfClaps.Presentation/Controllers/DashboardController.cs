@@ -25,14 +25,18 @@ public class DashboardController : Controller
         var teams = team.Length < 1
             ? _options.Teams
             : _options.Teams.Where(x => team.Contains(x.Id));
-        return View(teams.Select(x => new TeamViewModel
+        var volumes = _cacheBusinessProvider.GetVolumes();
+
+        var model = teams.Select(x => new TeamViewModel
         {
             Id = x.Id,
             Name = x.Name,
             Image = x.Image,
             Color = x.Color,
-            Volume = _cacheBusinessProvider.GetVolumes().GetValueOrDefault(x.Id, 0),
-        }));
+            Volume = volumes.GetValueOrDefault(x.Id, 0),
+            IsActive = _cacheBusinessProvider.IsActive(x.Id),
+        }).ToList();
+        return View(model);
     }
 
     public IActionResult Points(bool showMenu = true)

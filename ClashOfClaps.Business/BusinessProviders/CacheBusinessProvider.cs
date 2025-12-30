@@ -42,20 +42,17 @@ public class CacheBusinessProvider
     /// </summary>
     public void MeasureVolumes()
     {
-        var volumes = _cacheDataProvider.Volumes;
+        // try to get an active team
+        if (!_cacheDataProvider.Volumes.TryGetValue(_cacheDataProvider.GetActive(), out var team)) return;
 
-        foreach (var applauseVolume in volumes)
-        {
-            var team = volumes[applauseVolume.Key];
-            var volume = _audioMeterDataProvider.RmsDbFs;
+        var volume = _audioMeterDataProvider.RmsDbFs;
 
-            // add new volume measurement
-            team.RecentVolumes.Enqueue(volume);
+        // add new volume measurement
+        team.RecentVolumes.Enqueue(volume);
 
-            // check if current volume is higher than peak and replace it in that case
-            if (volume > team.Peak)
-                team.Peak = volume;
-        }
+        // check if current volume is higher than peak and replace it in that case
+        if (volume > team.Peak)
+            team.Peak = volume;
     }
 
     /// <summary>
@@ -74,4 +71,16 @@ public class CacheBusinessProvider
     /// Reset volume measurements
     /// </summary>
     public void ResetVolumes() => _cacheDataProvider.ResetVolumes();
+
+    /// <summary>
+    /// Set a team to active based on its unique id.
+    /// This will reset all other teams to inactive.
+    /// </summary>
+    public void SetActive(string teamId, bool setActive) => _cacheDataProvider.SetActive(teamId, setActive);
+
+    /// <summary>
+    /// Get whether the team with <paramref name="teamId"/> is currently active.
+    /// </summary>
+    public bool IsActive(string teamId) =>
+        _cacheDataProvider.Volumes.TryGetValue(teamId, out var applause) && applause.IsActive;
 }

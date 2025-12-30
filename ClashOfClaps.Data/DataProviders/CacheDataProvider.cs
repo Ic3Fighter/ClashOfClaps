@@ -29,13 +29,39 @@ public class CacheDataProvider
     /// <summary>
     /// Initialize/reset volumes dictionary
     /// </summary>
-    private void InitVolumes() => Volumes = _options.Teams.ToDictionary(x => x.Id, _ => new ApplauseVolume
-    {
-        RecentVolumes = new LimitedQueue<double>(_options.RecentVolumeMeasurements),
-    });
+    private void InitVolumes() => Volumes = Volumes?.ToDictionary( // try to reset to existing dictionary
+        x => x.Key,
+        y => new ApplauseVolume
+        {
+            RecentVolumes = new LimitedQueue<double>(_options.RecentVolumeMeasurements),
+            IsActive = y.Value.IsActive,
+        })
+        ?? _options.Teams.ToDictionary( // create a new dictionary from ApplicationOptions
+            x => x.Id,
+            _ => new ApplauseVolume
+            {
+                RecentVolumes = new LimitedQueue<double>(_options.RecentVolumeMeasurements),
+                IsActive = true,
+            });
 
     /// <summary>
     /// Reset volume measurements
     /// </summary>
     public void ResetVolumes() => InitVolumes();
+
+    /// <summary>
+    /// Set a team to active based on its unique id.
+    /// This will reset all other teams to inactive.
+    /// </summary>
+    public void SetActive(string teamId, bool setActive)
+    {
+        foreach (var applauseVolume in Volumes)
+            applauseVolume.Value.IsActive = applauseVolume.Key == teamId && setActive;
+    }
+
+    /// <summary>
+    /// Get the currently active team
+    /// </summary>
+    public string GetActive() =>
+        Volumes.First(x => x.Value.IsActive).Key;
 }

@@ -37,3 +37,12 @@ header {
 .team-color {
     background-color: var(--team-color);
 }
+
+.team-col {
+    opacity: .5;
+    transition: opacity linear .1s;
+}
+
+    .team-col.active {
+        opacity: 1;
+    }

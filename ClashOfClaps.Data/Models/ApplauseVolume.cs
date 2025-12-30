@@ -15,4 +15,9 @@ public class ApplauseVolume
     /// Overall measured peak value for this team
     /// </summary>
     public double Peak { get; set; } = int.MinValue;
+
+    /// <summary>
+    /// Set whether new measurements can be accepted for this team
+    /// </summary>
+    public bool IsActive { get; set; } = false;
 }

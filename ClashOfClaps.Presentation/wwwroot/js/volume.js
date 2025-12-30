@@ -1,10 +1,17 @@
 ﻿async function queryVolumes() {
     const response = await fetch("/api/volumes");
     const data = await response.json();
+    console.log(data["green"])
 
     document.querySelectorAll(".progress-bar").forEach(element => {
         try {
-            element.style.width = `${data[element.dataset.team] * 100}%`;
+            let team = data[element.dataset.team];
+            element.style.width = `${team.volume * 100}%`;
+            console.log(team.isActive)
+
+            let col = element.closest(".team-col");
+            if (team.isActive) col.classList.add("active");
+            else col.classList.remove("active");
         } catch (error) {
             console.error(error);
             element.style.width = "0%";
