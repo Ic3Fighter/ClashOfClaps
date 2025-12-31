@@ -1,7 +1,14 @@
+using ClashOfClaps.Business;
+using ClashOfClaps.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// project layers
+builder.Services.AddData(builder.Configuration);
+builder.Services.AddBusiness();
 
 var app = builder.Build();
 

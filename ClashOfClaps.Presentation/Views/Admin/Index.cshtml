@@ -1,0 +1,42 @@
+﻿@model List<ClashOfClaps.Data.Models.TeamSettings>
+
+@{
+    ViewData["Title"] = "Volume Dashboard";
+}
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/admin.js" asp-append-version="true"></script>
+}
+
+<div class="row">
+    @foreach (var team in Model)
+    {
+        <div class="col-xs-12 col-sm" style="--team-color: @team.Color;">
+            <div class="row">
+                <div class="col">
+                    <h2 style="white-space: nowrap">@team.Name</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-grid gap-2">
+                    <button class="btn team-color border border-black" onclick="increasePoints('@team.Id', 1)">+1 Point</button>
+                    <button class="btn team-color border border-black" onclick="decreasePoints('@team.Id', 1)">-1 Point</button>
+                    <button class="btn team-color border border-black" onclick="resetPoints('@team.Id')">Reset Point</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row mt-3">
+    <div class="col-12 d-grid">
+        <button class="btn btn-primary border border-black" onclick="resetVolumes()">Reset Volumes</button>
+    </div>
+</div>
+<div class="row mt-3">
+    @foreach (var team in Model)
+    {
+        <div class="col-xs-12 col-sm d-grid" style="--team-color:@team.Color;">
+            <button class="btn team-color border border-black" onclick="setActive('@team.Id')">Activate</button>
+        </div>
+    }
+</div>

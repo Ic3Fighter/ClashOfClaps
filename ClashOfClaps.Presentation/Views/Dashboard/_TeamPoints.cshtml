@@ -1,0 +1,11 @@
+﻿@model TeamViewModel
+
+<div class="team-col active"
+     style="--team-color: @Model.Color;">
+    <h1>@Model.Name</h1>
+    <div class="middle-item d-grid align-content-center justify-content-center">
+        <h2 class="points" data-team="@Model.Id" class="team-points">@Model.Points</h2>
+        <p>Punkte</p>
+    </div>
+    <img class="w-100" src="~/img/@Model.Image" alt="@Model.Name image" />
+</div>

@@ -1,0 +1,13 @@
+﻿@using System.Globalization
+@model TeamViewModel
+
+<div class="team-col @(Model.IsActive ? "active" : null)" @(Model.IsSelected ? null : "disabled=true")
+     style="--team-color: @Model.Color;">
+    <h1>@Model.Name</h1>
+    <div class="middle-item progress-vertical">
+        <div class="progress-bar-vertical"
+             data-team="@Model.Id"
+             style="height: @((Model.Volume * 100).ToString(CultureInfo.GetCultureInfo("en")))%; background-color: var(--team-color);"></div>
+    </div>
+    <img class="w-100" src="~/img/@Model.Image" alt="@Model.Name image" />
+</div>
