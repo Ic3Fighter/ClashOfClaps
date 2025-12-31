@@ -9,9 +9,11 @@
     <script type="text/javascript" src="~/js/volume.js" asp-append-version="true"></script>
 }
 
-<div class="row">
-    @foreach (var team in Model)
-    {
-        <partial name="_TeamProgressBar" model="team" />
-    }
+<div class="row @(ViewData["menu"] as bool? == true ? "mt-5" : null)">
+    <div class="d-flex gap-3 flex-wrap">
+        @foreach (var team in Model)
+        {
+            <partial name="_TeamProgressBar" model="team" />
+        }
+    </div>
 </div>

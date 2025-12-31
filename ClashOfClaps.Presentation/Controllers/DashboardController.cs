@@ -19,9 +19,10 @@ public class DashboardController : Controller
     }
 
     [HttpGet]
-    public IActionResult Volumes(bool showMenu = true, params string[] team)
+    public IActionResult Volumes(bool showMenu = true, bool dark = false, params string[] team)
     {
         ViewData["menu"] = showMenu;
+        ViewData["dark"] = dark;
         var volumes = _cacheBusinessProvider.GetVolumes();
 
         var model = _options.Teams.Select(x => new TeamViewModel
@@ -37,14 +38,16 @@ public class DashboardController : Controller
         return View(model);
     }
 
-    public IActionResult Points(bool showMenu = true)
+    public IActionResult Points(bool showMenu = true, bool dark = false)
     {
         ViewData["menu"] = showMenu;
+        ViewData["dark"] = dark;
         return View(_options.Teams.Select(x => new TeamViewModel
         {
             Id = x.Id,
             Name = x.Name,
             Image = x.Image,
+            Color = x.Color,
             Points = _cacheBusinessProvider.GetPoints().GetValueOrDefault(x.Id, x.StartingPoints),
         }));
     }
