@@ -2,6 +2,7 @@ using ClashOfClaps.Business;
 using ClashOfClaps.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+Console.WriteLine($"Starting application with Environment: {builder.Environment.EnvironmentName}");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -20,7 +21,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); // not needed for local networks without dns
 app.UseRouting();
 
 app.UseAuthorization();
