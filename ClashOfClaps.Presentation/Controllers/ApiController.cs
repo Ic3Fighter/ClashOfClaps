@@ -24,11 +24,12 @@ public class ApiController : ControllerBase
     public IActionResult Volumes()
     {
         _cacheBusinessProvider.MeasureVolumes();
+        var isAnyActive = _cacheBusinessProvider.IsAnyTeamActive();
         return Ok(_cacheBusinessProvider.GetVolumes().ToDictionary(x => x.Key, 
             y => new
             {
                 Volume = y.Value, 
-                IsActive = _cacheBusinessProvider.IsActive(y.Key)
+                IsActive = !isAnyActive || _cacheBusinessProvider.IsActive(y.Key)
             }));
     }
 
@@ -81,6 +82,14 @@ public class ApiController : ControllerBase
     public IActionResult SetActive(string team, bool? isActive)
     {
         _cacheBusinessProvider.SetActive(team, isActive ?? true);
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("team/active")]
+    public IActionResult ResetActive()
+    {
+        _cacheBusinessProvider.ResetActive();
         return Ok();
     }
 
