@@ -27,3 +27,9 @@ async function setActive(team) {
         method: "POST"
     });
 }
+
+async function resetActive(team) {
+    await fetch(`/api/team/active`, {
+        method: "POST"
+    });
+}

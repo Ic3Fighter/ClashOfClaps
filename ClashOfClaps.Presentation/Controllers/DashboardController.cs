@@ -24,6 +24,7 @@ public class DashboardController : Controller
         ViewData["menu"] = showMenu;
         ViewData["dark"] = dark;
         var volumes = _cacheBusinessProvider.GetVolumes();
+        var isAnyActive = _cacheBusinessProvider.IsAnyTeamActive();
 
         var model = _options.Teams.Select(x => new TeamViewModel
         {
@@ -32,7 +33,7 @@ public class DashboardController : Controller
             Image = x.Image,
             Color = x.Color,
             Volume = volumes.GetValueOrDefault(x.Id, 0),
-            IsActive = _cacheBusinessProvider.IsActive(x.Id),
+            IsActive = !isAnyActive || _cacheBusinessProvider.IsActive(x.Id),
             IsSelected = team.Length < 1 || team.Contains(x.Id),
         }).ToList();
         return View(model);

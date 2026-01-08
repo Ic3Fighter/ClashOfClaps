@@ -41,7 +41,6 @@ public class CacheDataProvider
             _ => new ApplauseVolume
             {
                 RecentVolumes = new LimitedQueue<double>(_options.RecentVolumeMeasurements),
-                IsActive = true,
             });
 
     /// <summary>
@@ -60,8 +59,17 @@ public class CacheDataProvider
     }
 
     /// <summary>
+    /// Reset all actives teams to inactive
+    /// </summary>
+    public void ResetActive()
+    {
+        foreach (var applauseVolume in Volumes.Where(x => x.Value.IsActive))
+            applauseVolume.Value.IsActive = false;
+    }
+
+    /// <summary>
     /// Get the currently active team
     /// </summary>
     public string GetActive() =>
-        Volumes.First(x => x.Value.IsActive).Key;
+        Volumes.FirstOrDefault(x => x.Value.IsActive).Key;
 }

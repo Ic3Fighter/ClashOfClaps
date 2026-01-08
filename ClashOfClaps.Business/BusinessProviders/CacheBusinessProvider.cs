@@ -43,7 +43,8 @@ public class CacheBusinessProvider
     public void MeasureVolumes()
     {
         // try to get an active team
-        if (!_cacheDataProvider.Volumes.TryGetValue(_cacheDataProvider.GetActive(), out var team)) return;
+        var activeTeamId = _cacheDataProvider.GetActive();
+        if (string.IsNullOrEmpty(activeTeamId) || !_cacheDataProvider.Volumes.TryGetValue(activeTeamId, out var team)) return;
 
         var volume = _audioMeterDataProvider.RmsDbFs;
 
@@ -79,8 +80,18 @@ public class CacheBusinessProvider
     public void SetActive(string teamId, bool setActive) => _cacheDataProvider.SetActive(teamId, setActive);
 
     /// <summary>
+    /// Reset all active teams to inactive.
+    /// </summary>
+    public void ResetActive() => _cacheDataProvider.ResetActive();
+
+    /// <summary>
     /// Get whether the team with <paramref name="teamId"/> is currently active.
     /// </summary>
     public bool IsActive(string teamId) =>
         _cacheDataProvider.Volumes.TryGetValue(teamId, out var applause) && applause.IsActive;
+
+    /// <summary>
+    /// Check whether any team is set to active
+    /// </summary>
+    public bool IsAnyTeamActive() => _cacheDataProvider.Volumes.Any(x => x.Value.IsActive);
 }
